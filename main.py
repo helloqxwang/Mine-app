@@ -13,7 +13,7 @@ st.set_page_config(
     page_icon="😛",
     initial_sidebar_state="expanded"
 )
-
+st.session_state["classify_Items"]=[]
 df = pd.DataFrame({'item': [],'PS': []})
 PAGES = [
     'Home',

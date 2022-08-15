@@ -5,7 +5,6 @@ import datetime as dt
 
 import Data_Munging
 
-st.session_state["classify_Items"]=[]
 def add_the_class(new_class):
     '''
     this function is used to add a new class to the st.session_state["classify_Items"]
