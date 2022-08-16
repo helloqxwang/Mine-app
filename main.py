@@ -22,7 +22,10 @@ PAGES = [
     'Self-analysis'
 ]
 st.sidebar.title("WWWelcome!😃")
-
+st.sidebar.markdown('''
+    This is a **test app** made by student Wang.
+    Hope this tool can make him a better life ***PPPLEASE!!!***
+''')
 page = st.sidebar.radio('Navigation', PAGES, index=0)
 if page == 'What have been done today':
     st.sidebar.write("""
@@ -39,10 +42,13 @@ if page=='Home':
                """)
     Home_Page.home_UI()
 if page=='Schedule':
-    st.sidebar.write("""
+    st.sidebar.markdown("""
                    ## About
 
                 Welcome to the schedule page!
+                This page is designed to do *two things*
+                - upload a schedule as a md file
+                - write a schedule directly in this page(not done yet)
                    """)
     Schedule_Page.schedule_UI()
 

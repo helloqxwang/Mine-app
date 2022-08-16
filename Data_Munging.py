@@ -45,3 +45,29 @@ def fetch_schedule(date):
     fileName = "Data/Schedule/"+date.isoformat()+"_Schedule.csv"
     df = pd.read_csv(fileName)
     return df
+
+def fetch_md_schedule(date=dt.datetime.today().date()):
+    '''
+    this function is used to fetch the markdown file of the schedule
+    Attention: in order to find the file ,we should mark the md file as "2022-01-01 Schedule"
+    :param date:the date of the day I want
+    :return:the md file
+    '''
+    file='Data/Schedule/notes/'+date.isoformat()+" Schedule.md"
+    with open(file,encoding = 'utf_8_sig') as f:
+        schedule=f.read()
+        schedule=schedule[4:]
+        begin=schedule.find('---')
+        schedule=schedule[begin+3:]
+        return schedule
+
+def write_md_schedule(data,date=dt.datetime.today().date()+dt.timedelta(days=1)):
+    '''
+
+    :param data:
+    :param date:
+    :return:
+    '''
+    fileName = 'Data/Schedule/notes/' + date.isoformat() + " Schedule.md"
+    with open(fileName,mode="w",encoding = 'utf_8_sig') as f:
+        f.write(data)
