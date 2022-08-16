@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 import os
 import streamlit as st
+from deta import Deta  # Import Deta
 
 recordPlace="Data/Record/ItemDoneEachDay.csv"
 def fetchAllRecord(date=dt.datetime.today().date()):
@@ -53,21 +54,33 @@ def fetch_md_schedule(date=dt.datetime.today().date()):
     :param date:the date of the day I want
     :return:the md file
     '''
-    file='Data/Schedule/notes/'+date.isoformat()+" Schedule.md"
-    with open(file,encoding = 'utf_8_sig') as f:
-        schedule=f.read()
-        schedule=schedule[4:]
-        begin=schedule.find('---')
-        schedule=schedule[begin+3:]
-        return schedule
+    deta = Deta(st.secrets["deta_key"])
+    db = deta.Base("schedule_md")
+    data=db.get(date.isoformat())
+    # if data['value'] == 'None':
+    #     db.delete(date.isoformat())
+    #     return None
+    if data['value'] == '' or data is None:
+        return None
+    data=data['value']
+    if data.find('created') ==-1:
+        return data
+    loc=data.find('---')
+    data=data[loc+3:]
+    return data
 
-def write_md_schedule(data,date=dt.datetime.today().date()+dt.timedelta(days=1)):
+def write_md_schedule(data,date=dt.datetime.today().date()):
     '''
 
     :param data:
     :param date:
     :return:
     '''
-    fileName = 'Data/Schedule/notes/' + date.isoformat() + " Schedule.md"
-    with open(fileName,mode="w",encoding = 'utf_8_sig') as f:
-        f.write(data)
+    if data =='None':
+        print('text_area is None')
+        return
+    # Initialize with a Project Key
+    deta = Deta(st.secrets["deta_key"])
+    # This how to connect to or create a database.
+    db = deta.Base("schedule_md")
+    db.put(data,key=date.isoformat())
