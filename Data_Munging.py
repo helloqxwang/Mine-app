@@ -47,7 +47,7 @@ def fetch_schedule(date):
     df = pd.read_csv(fileName)
     return df
 
-def fetch_md_schedule(date=dt.datetime.today().date()):
+def fetch_md_from_deta(kind,date=dt.datetime.today().date()):
     '''
     this function is used to fetch the markdown file of the schedule
     Attention: in order to find the file ,we should mark the md file as "2022-01-01 Schedule"
@@ -55,7 +55,7 @@ def fetch_md_schedule(date=dt.datetime.today().date()):
     :return:the md file
     '''
     deta = Deta(st.secrets["deta_key"])
-    db = deta.Base("schedule_md")
+    db = deta.Base("%s_md"%(kind))
     data=db.get(date.isoformat())
     # if data['value'] == 'None':
     #     db.delete(date.isoformat())
@@ -63,13 +63,13 @@ def fetch_md_schedule(date=dt.datetime.today().date()):
     if data is None or data['value'] == '':
         return None
     data=data['value']
-    if data.find('created') ==-1:
+    if data.find('created') == -1:
         return data
     loc=data.find('---')
     data=data[loc+3:]
     return data
 
-def write_md_schedule(data,date=dt.datetime.today().date()):
+def write_md_to_deta(kind,data,date=dt.datetime.today().date()):
     '''
 
     :param data:
@@ -82,5 +82,5 @@ def write_md_schedule(data,date=dt.datetime.today().date()):
     # Initialize with a Project Key
     deta = Deta(st.secrets["deta_key"])
     # This how to connect to or create a database.
-    db = deta.Base("schedule_md")
+    db = deta.Base("%s_md"%(kind))
     db.put(data,key=date.isoformat())

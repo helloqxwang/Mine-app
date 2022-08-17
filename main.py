@@ -5,20 +5,16 @@ import datetime as dt
 import Home_Page
 import Data_Munging
 import Schedule_Page
-import TodayItem
-
-
+import Record_Page
 st.set_page_config(
     page_title="Student Wang's page",
     page_icon="😛",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="auto"
 )
-st.session_state["classify_Items"]=[]
-df = pd.DataFrame({'item': [],'PS': []})
 PAGES = [
     'Home',
     'Schedule',
-    'What have been done today',
+    'Record and Memo',
     'Self-analysis'
 ]
 st.sidebar.title("WWWelcome!😃")
@@ -27,13 +23,13 @@ st.sidebar.markdown('''
     Hope this tool can make him a better life ***PPPLEASE!!!***
 ''')
 page = st.sidebar.radio('Navigation', PAGES, index=0)
-if page == 'What have been done today':
+if page == 'Record and Memo':
     st.sidebar.write("""
            ## About
 
         Record your day!
            """)
-    TodayItem.todayItemUI()
+    Record_Page.record_page_ui()
 if page=='Home':
     st.sidebar.write("""
                ## About
