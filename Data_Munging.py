@@ -60,7 +60,7 @@ def fetch_md_schedule(date=dt.datetime.today().date()):
     # if data['value'] == 'None':
     #     db.delete(date.isoformat())
     #     return None
-    if data['value'] == '' or data is None:
+    if data is None or data['value'] == '':
         return None
     data=data['value']
     if data.find('created') ==-1:
