@@ -84,3 +84,28 @@ def write_md_to_deta(kind,data,date=dt.datetime.today().date()):
     # This how to connect to or create a database.
     db = deta.Base("%s_md"%(kind))
     db.put(data,key=date.isoformat())
+
+def fetch_md_att_from_data():
+    '''
+    this function is used to fetch the attention in home page in md
+    :return: a string of data
+    '''
+    deta = Deta(st.secrets["deta_key"])
+    db = deta.Base('attention_md')
+    data = db.get('attention')
+    if data is None or data['value'] == '':
+        return None
+    data = data['value']
+    return data
+
+def write_md_att_from_data(data):
+    '''
+    this function is used to write the attention in home page in md
+    :param: the data of attention
+    :return: None
+    '''
+    deta = Deta(st.secrets["deta_key"])
+    db = deta.Base('attention_md')
+    db.put(data, key='attention')
+
+

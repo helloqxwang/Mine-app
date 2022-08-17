@@ -16,7 +16,7 @@ def record_page_ui():
         ''')
     st.date_input('Select one date.', key='record_date')
     # this is the three tabs in this page
-    tab1, tab2, tab3 = st.tabs(['What\'s up?', 'Edit it!', 'Upload it'])
+    tab1, tab2, tab3 = st.tabs(['What\'s up?', 'Edit it!', 'Upload one'])
     page = UI_Class.md_show_edit(tab1, tab2, 'record', st.session_state['record_date'])
     page.show()
     with tab3:
