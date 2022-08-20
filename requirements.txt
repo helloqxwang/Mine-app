@@ -1,2 +1,4 @@
 deta
 streamlit_lottie
+streamlit_ace
+streamlit_elements
