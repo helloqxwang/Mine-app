@@ -5,6 +5,7 @@ from streamlit_lottie import st_lottie_spinner
 from io import StringIO
 import time
 import requests
+import UI_Class
 
 def load_lottieurl(url: str):
     '''
@@ -51,22 +52,22 @@ def home_UI():
     if attention is not None:
         content.markdown(attention)
     with tab2:
-        form = st.form("text input")
-        with form:
-            text_content = st.text_area("Write your attention!",
-                                        Data_Munging.fetch_md_att_from_data(),
-                                        key='attention_content', height=400)
-            submitted = st.form_submit_button(label="Update!")
-        if submitted:
-            text = st.session_state['attention_content']
-            if text is None or text == '' or text == 'None':
+        c1, c2 = st.columns([1.5, 1])
+        with c1:
+            input = UI_Class.md_show_edit.set_the_ace('attention')
+        if input:
+            c2.subheader("MD Preview:")
+            c2.markdown(input)
+            if input is None or input == '' or input == 'None':
+                print(input)
                 content.markdown('''
                       ## No Attentions!   
                       # enjoy you life!😃
                                     ''')
             else:
-                content.markdown(text)
-            Data_Munging.write_md_att_from_data(st.session_state['attention_content'])
+                content.markdown(input)
+                print(input)
+            Data_Munging.write_md_att_from_data(input)
     with tab3:
         st.file_uploader("Choose a file",key='uploaded_file')
         if st.session_state['uploaded_file'] is not None:

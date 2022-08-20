@@ -1,17 +1,42 @@
 import streamlit as st
 import Data_Munging
 import datetime as dt
-
+import streamlit_ace
 class md_show_edit:
     tab1 = None
     tab2 = None
     kind=''
     date = None
+
     def __init__(self,t1,t2,k,d) ->None :
         self.tab1=t1
         self.tab2=t2
         self.kind=k
         self.date=d
+
+    @staticmethod
+    def set_the_ace(kind,date = None):
+        st.subheader('Write your %s freely!' % kind)
+        if date is None :
+            input_content = streamlit_ace.st_ace(
+                height=400,
+                value=Data_Munging.fetch_md_att_from_data(),
+                language='markdown',
+                theme='twilight',
+                font_size=17,
+                key='ace_%s' % kind
+            )
+        else :
+            input_content = streamlit_ace.st_ace(
+                height=400,
+                value=Data_Munging.fetch_md_from_deta(kind, date),
+                language='markdown',
+                theme='twilight',
+                font_size=17,
+                key='ace_%s' % kind
+            )
+        return input_content
+
     def show(self) ->None :
         schedule = Data_Munging.fetch_md_from_deta(self.kind,self.date)
         content=self.tab1.markdown('''
@@ -20,19 +45,23 @@ class md_show_edit:
         if schedule is not None:
             content.markdown(schedule)
         with self.tab2:
-            form = st.form("text input")
-            with form:
-                text_content = st.text_area("Write the %s freely"%(self.kind),
-                                            Data_Munging.fetch_md_from_deta(self.kind,self.date),
-                                            key='the_content', height=400)
-                submitted = st.form_submit_button(label="Update!")
-            if submitted:
-                print('teat_input is written to the detabase')
-                # st.write(st.session_state['schedule_content'])
-                content.markdown(st.session_state['the_content'])
-                # st.write(st.session_state['schedule_content'])
-                Data_Munging.write_md_to_deta(self.kind,st.session_state['the_content'], self.date)
-                # st.write(st.session_state['schedule_content'])
+            c1, c2 = st.columns([1.5, 1])
+            with c1:
+                input = streamlit_ace.st_ace(
+                    height=400,
+                    value=Data_Munging.fetch_md_from_deta(self.kind, self.date),
+                    language='markdown',
+                    theme='twilight',
+                    font_size=17,
+                    key='ace_%s' % self.kind
+                )
+            if input:
+                c2.subheader("MD Preview:")
+                c2.markdown(input)
+                Data_Munging.write_md_to_deta(self.kind, input, self.date)
+                content.markdown(input)
+
+
 
 class record_by_form:
 

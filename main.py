@@ -3,20 +3,22 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 import Home_Page
-import Data_Munging
 import Schedule_Page
 import Record_Page
 import Self_Analysis_Page
+import Explore_Page
 st.set_page_config(
     page_title="Student Wang's page",
     page_icon="😍",
-    initial_sidebar_state="auto"
+    initial_sidebar_state="auto",
+    layout='wide'
 )
 PAGES = [
     'Home',
     'Schedule',
     'Record and Memo',
-    'Self-analysis'
+    'Self-analysis',
+    'Explore'
 ]
 st.sidebar.title("WWWelcome!😃")
 st.sidebar.markdown('''
@@ -85,6 +87,10 @@ if page=='Schedule':
 if page=='Self-analysis':
     show_page=Self_Analysis_Page.self_analysis_page()
     show_page.show()
+
+if page=='Explore':
+    p = Explore_Page.explore_page()
+    p.show('elements')
 
 
 
