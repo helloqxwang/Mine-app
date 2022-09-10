@@ -1,6 +1,7 @@
+import datetime
+
 import streamlit as st
-from streamlit_elements import elements, mui , html,lazy,sync
-import streamlit_ace
+import UI_Class
 
 class explore_page:
     kind = ''
@@ -8,51 +9,15 @@ class explore_page:
         kind =''
 
     def show (self,k):
-        if(k=='elements'):
-            with elements("dashboard"):
-
-                # You can create a draggable and resizable dashboard using
-                # any element available in Streamlit Elements.
-
-                from streamlit_elements import dashboard
-
-                # First, build a default layout for every element you want to include in your dashboard
-
-                layout = [
-                    # Parameters: element_identifier, x_pos, y_pos, width, height, [item properties...]
-                    dashboard.Item("first_item", 0, 0, 2, 2),
-                    dashboard.Item("second_item", 2, 0, 2, 2, isDraggable=False, moved=False),
-                    dashboard.Item("third_item", 0, 2, 1, 1, isResizable=False),
-                ]
-
-                # Next, create a dashboard layout using the 'with' syntax. It takes the layout
-                # as first parameter, plus additional properties you can find in the GitHub links below.
-
-                with dashboard.Grid(layout):
-                    mui.Paper("First item", key="second_item")
-                    mui.Paper("Second item (cannot drag)", key="second_item")
-                    mui.Paper("Third item (cannot resize)", key="third_item")
-
-                # If you want to retrieve updated layout values as the user move or resize dashboard items,
-                # you can pass a callback to the onLayoutChange event parameter.
-
-                def handle_layout_change(updated_layout):
-                    # You can save the layout in a file, or do anything you want with it.
-                    # You can pass it back to dashboard.Grid() if you want to restore a saved layout.
-                    print(updated_layout)
-
-                content = streamlit_ace.st_ace(
-                    language='markdown',
-                    theme='twilight',
-                    font_size=18,
-                    wrap=True,
-                    key='ace'
-                )
-                if content:
-                    st.subheader("Content")
-                st.markdown(content)
-
-        else:
-            st.markdown('''
-            # there is not a page on %s now
-            '''%k)
+        # if(k=='elements'):
+        #    page = UI_Class.elements_test()
+        #    page.show()
+        # elif(k=='long'):
+        #     tab1 ,tab2 = st.tabs(['1','2'])
+        #     page = UI_Class.long_term_stuff_show(tab1,tab2,'schedule',datetime.date.today())
+        #     page()
+        # else:
+        #     st.markdown('''
+        #     # there is not a page on %s now
+        #     '''%k
+     st.markdown("# this is a test area")

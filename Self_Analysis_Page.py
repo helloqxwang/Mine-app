@@ -7,5 +7,7 @@ import UI_Class
 class self_analysis_page:
     def show(self):
         st.markdown('''
-            # This page will be constructed in v4 😄
+            # This is the test version~😄
         ''')
+        page=UI_Class.self_analysis_calss()
+        page()

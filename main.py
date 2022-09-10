@@ -65,7 +65,7 @@ if page == 'Record and Memo':
             - upload a record in md!
            """)
     Record_Page.record_page_ui()
-if page=='Home':
+if page == 'Home':
     st.sidebar.write("""
                ## About
             Welcome to the home page!   
@@ -73,7 +73,7 @@ if page=='Home':
             You can write yourself attentions and check then freely here.  
                """)
     Home_Page.home_UI()
-if page=='Schedule':
+if page == 'Schedule':
     st.sidebar.markdown("""
                    ## About
 
@@ -84,13 +84,13 @@ if page=='Schedule':
                 - upload your schedule in md!
                    """)
     Schedule_Page.schedule_UI()
-if page=='Self-analysis':
+if page == 'Self-analysis':
     show_page=Self_Analysis_Page.self_analysis_page()
     show_page.show()
 
-if page=='Explore':
+if page == 'Explore':
     p = Explore_Page.explore_page()
-    p.show('elements')
+    p.show('long')
 
 
 
