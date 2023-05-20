@@ -25,7 +25,7 @@ st.sidebar.markdown('''
     This is a **test app** made by student Wang.
     Hope this tool can make him a better life ***PPPLEASE!!!***
 ''')
-page = st.sidebar.radio('Navigation', PAGES, index=0)
+page = st.sidebar.radio('Navigation', PAGES, index=1)
 
 site_about = st.sidebar.expander('Why I build this site')
 with site_about:
